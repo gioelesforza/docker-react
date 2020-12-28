@@ -6,3 +6,14 @@ before_install:
     - docker build -t gioelesforza/docker-react -f Dockerfile.dev .
 script:
     - docker run -e CI=true gioelesforza/docker-react npm run test
+deploy:
+    provider: elasticbeanstalk
+    region: "eu-west-3"
+    app: "docker"
+    env: "Docker-env"
+    bucket_name: "elasticbeanstalk-eu-west-3-494222439460"
+    bucket_path: "docker"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
